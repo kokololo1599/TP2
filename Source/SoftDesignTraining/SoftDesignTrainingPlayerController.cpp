@@ -9,6 +9,8 @@
 #include "SDTBridge.h"
 #include "SDTBoatOperator.h"
 #include "Engine/OverlapResult.h"
+#include "NavigationSystem.h"
+#include "NavigationPath.h"
 
 ASoftDesignTrainingPlayerController::ASoftDesignTrainingPlayerController()
 {
@@ -86,6 +88,60 @@ void ASoftDesignTrainingPlayerController::MoveCharacter()
     // TODO : find the position of the mouse in the world 
     // And move the agent to this position IF possible
     // Validate you can move through m_CanMoveCharacter
+    if (!m_CanMoveCharacter) return;
+    APawn* pawn = GetPawn();
+    if (!pawn) return;
+    
+    // get click location
+    FHitResult hit;
+    if (!GetHitResultUnderCursor(ECC_Visibility, true, hit) || !hit.bBlockingHit) return;
+
+    const FVector start = pawn->GetActorLocation();
+    const FVector goal = hit.Location;
+
+    // find path
+    UNavigationSystemV1* navSys = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());
+    if (!navSys) return;
+
+    UNavigationPath* navPath = navSys->FindPathToLocationSynchronously(
+        GetWorld(),
+        start,
+        goal,
+        pawn,
+        nullptr
+    );
+
+    if (!navPath || navPath->IsPartial())
+    {
+        DrawDebugSphere(GetWorld(), goal, 22.f, 12, FColor::Red, false, 2.0f);
+        return;
+    }
+
+    // draw debug
+    const float lifeTime = 2.5f;
+    const float thickness = 4.0f;
+    const float nodeRadius = 18.f;
+
+    const TArray<FVector>& pts = navPath->PathPoints;
+
+    for (int32 i = 0; i < pts.Num(); ++i)
+    {
+        DrawDebugSphere(GetWorld(), pts[i], nodeRadius, 12, FColor::Cyan, false, lifeTime);
+        DrawDebugString(
+            GetWorld(),
+            pts[i] + FVector(0.f, 0.f, 30.f),
+            FString::Printf(TEXT("%d"), i),
+            nullptr,
+            FColor::White,
+            lifeTime
+        );
+
+        if (i + 1 < pts.Num())
+        {
+            DrawDebugLine(GetWorld(), pts[i], pts[i + 1], FColor::Green, false, lifeTime, 0, thickness);
+        }
+    }
+    UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, goal);
 }
 
 void ASoftDesignTrainingPlayerController::Activate()

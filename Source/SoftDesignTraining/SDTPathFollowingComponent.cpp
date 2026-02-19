@@ -32,6 +32,38 @@ void USDTPathFollowingComponent::FollowPathSegment(float DeltaTime)
     else
     {
         //TODO: Update navigation along path (move along)
+        AController* AICon = Cast<AController>(GetOwner());
+        APawn* pawn = AICon ? AICon->GetPawn() : nullptr;
+        if (!pawn)
+            return;
+
+        const FVector pawnLoc = pawn->GetActorLocation();
+        const FVector target = segmentEnd.Location;
+
+        // Consider segment reached in 2D (navmesh walking)
+        const float acceptanceRadius = 50.f;
+        const float dist2D = FVector2D::Distance(FVector2D(pawnLoc), FVector2D(target));
+
+        if (dist2D <= acceptanceRadius)
+        {
+            // reached this point -> advance to next segment
+            SetMoveSegment(MoveSegmentEndIndex);
+            return;
+        }
+
+        // drive pawn toward target
+        FVector toTarget = target - pawnLoc;
+        toTarget.Z = 0.f;
+        const FVector dir = toTarget.GetSafeNormal();
+
+        if (UNavMovementComponent* navMove = pawn->FindComponentByClass<UNavMovementComponent>())
+        {
+            navMove->RequestDirectMove(dir, /*bForceMaxSpeed=*/true);
+        }
+        else if (ACharacter* character = Cast<ACharacter>(pawn))
+        {
+            character->AddMovementInput(dir, 1.0f);
+        }
     }
 }
 
