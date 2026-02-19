@@ -27,11 +27,11 @@ void USDTPathFollowingComponent::FollowPathSegment(float DeltaTime)
 
     if (SDTUtils::HasJumpFlag(segmentStart))
     {
-        // Update jump along path / nav link proxy
+        //TODO: Update jump along path / nav link proxy
     }
     else
     {
-        // Update navigation along path (move along)
+        //TODO: Update navigation along path (move along)
     }
 }
 
@@ -49,11 +49,11 @@ void USDTPathFollowingComponent::SetMoveSegment(int32 segmentStartIndex)
 
     if (SDTUtils::HasJumpFlag(segmentStart) && FNavMeshNodeFlags(segmentStart.Flags).IsNavLink())
     {
-        // Handle starting jump
+        //TODO: Handle starting jump
     }
     else
     {
-        // Handle normal segments
+        //TODO: Handle normal segments
     }
 }
 
