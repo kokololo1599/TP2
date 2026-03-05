@@ -40,7 +40,9 @@ void ASDTAIController::GoToBestTarget(float deltaTime)
             if (actor != nullptr)
             {
                 // TODO : Agents wants to move towards actor
+                MoveToActor(actor, 5.f);
 
+                m_ReachedTarget = false;
                 m_PedestrianState = PedestrianState::GO_TO_BRIDGE;
             }
             break;
@@ -73,6 +75,9 @@ void ASDTAIController::GoToBestTarget(float deltaTime)
             if (actor != nullptr)
             {
                 // TODO : Agents wants to move towards actor
+                MoveToActor(actor, 5.f);
+                m_ReachedTarget = false;
+                m_PedestrianState = PedestrianState::GO_TO_DESPAWN;
             }
             
             break;
@@ -121,6 +126,59 @@ void ASDTAIController::ShowNavigationPath()
     // Use the UPathFollowingComponent of the AIController to get the path
     // This function is called while m_ReachedTarget is false 
     // Check void ASDTBaseAIController::Tick for how it works.
+    UPathFollowingComponent* pathComp = GetPathFollowingComponent();
+    if (!pathComp)
+    {
+        return;
+    }
+
+    const FNavPathSharedPtr navPath = pathComp->GetPath();
+    if (!navPath.IsValid())
+    {
+        return;
+    }
+
+    const TArray<FNavPathPoint>& pathPoints = navPath->GetPathPoints();
+
+    for (int i = 0; i < pathPoints.Num() - 1; i++)
+    {
+        FVector start = pathPoints[i].Location;
+        FVector end = pathPoints[i + 1].Location;
+
+        DrawDebugLine(
+            GetWorld(),
+            start,
+            end,
+            FColor::Green,
+            false,
+            -1.f,
+            0,
+            5.f
+        );
+
+        DrawDebugSphere(
+            GetWorld(),
+            start,
+            15.f,
+            8,
+            FColor::Red,
+            false,
+            -1.f
+        );
+    }
+
+    if (pathPoints.Num() > 0)
+    {
+        DrawDebugSphere(
+            GetWorld(),
+            pathPoints.Last().Location,
+            20.f,
+            8,
+            FColor::Blue,
+            false,
+            -1.f
+        );
+    }
 }
 
 void ASDTAIController::AIStateInterrupted()
