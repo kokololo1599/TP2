@@ -21,119 +21,129 @@ void ASDTBoatAIController::GoToBestTarget(float deltaTime)
 
 	switch (m_BoatState)
 	{
-		case BoatState::SPAWNED:
-		{
-			FString tag("WaitPoint_Start_Water");
-			AActor* actor = FindActorWithTag(tag, false);
+	case BoatState::SPAWNED:
+	{
+		FString tag("WaitPoint_Start_Water");
+		AActor* actor = FindActorWithTag(tag, false);
 
+		if (actor != nullptr)
+		{
+			// TODO : Agents wants to move towards actor
+			MoveToActor(actor, 50.f);
+			m_ReachedTarget = false;
+
+			m_BoatState = BoatState::GO_TO_START_BRIDGE;
+		}
+
+		break;
+	}
+	case BoatState::GO_TO_START_BRIDGE:
+	{
+		// Nothing to do
+		break;
+	}
+	case BoatState::WAIT_AT_START_BRIDGE:
+	{
+		// Check if bridge is down
+		FString tag("Bridge_0");
+		AActor* actor = FindActorWithTag(tag, false);
+		ASDTBridge* bridge = Cast<ASDTBridge>(actor);
+
+		// Once the bridge is down, we go through
+		if (bridge != nullptr && bridge->GetState() == EBridgeState::BRIDGE_UP)
+		{
+			m_BoatState = BoatState::GO_TO_OPERATOR;
+		}
+
+		break;
+	}
+	case BoatState::GO_TO_OPERATOR:
+	{
+		TArray<AActor*> foundActors;
+		UGameplayStatics::GetAllActorsOfClass(this, ASDTBoatOperator::StaticClass(), foundActors);
+
+		for (AActor* actor : foundActors)
+		{
+			ASDTBoatOperator* boatOperator = Cast<ASDTBoatOperator>(actor);
+			if (boatOperator->IsAvailable())
+			{
+				boatOperator->Reserve(this);
+
+				// TODO : we want to move the agent towards the DropLocation of the boatOperator 
+				// Check ASDTBoatOperator::GetDropLocation to get the location.
+				// Note that m_ReachedTarget should be set to FALSE if the move is valid!
+				FVector dropLocation = boatOperator->GetDropLocation();
+
+				MoveToLocation(dropLocation);
+
+				m_ReachedTarget = false;
+				break;
+			}
+		}
+
+		break;
+	}
+	case BoatState::WAIT_AT_OPERATOR:
+	{
+		// Nothing to do, wait for notification to advance
+		break;
+	}
+	case BoatState::GO_TO_END_BRIDGE:
+	{
+		// Nothing to do
+		break;
+	}
+	case BoatState::WAIT_AT_END_BRIDGE:
+	{
+		// Check if bridge is down
+		FString tag("Bridge_1");
+		AActor* actor = FindActorWithTag(tag, false);
+		ASDTBridge* bridge = Cast<ASDTBridge>(actor);
+
+		// Once the bridge is down, we go through
+		if (bridge != nullptr && bridge->GetState() == EBridgeState::BRIDGE_UP)
+		{
+			m_BoatState = BoatState::GO_TO_DESPAWN;
+
+			tag = "WaitPoint_Water_2";
+			actor = FindActorWithTag(tag, false);
 			if (actor != nullptr)
 			{
 				// TODO : Agents wants to move towards actor
-
-				m_BoatState = BoatState::GO_TO_START_BRIDGE;
+				MoveToActor(actor, 50.f);
+				m_ReachedTarget = false;
 			}
-
-			break;
 		}
-		case BoatState::GO_TO_START_BRIDGE:
-		{
-			// Nothing to do
-			break;
-		}
-		case BoatState::WAIT_AT_START_BRIDGE:
-		{
-			// Check if bridge is down
-			FString tag("Bridge_0");
-			AActor* actor = FindActorWithTag(tag, false);
-			ASDTBridge* bridge = Cast<ASDTBridge>(actor);
 
-			// Once the bridge is down, we go through
-			if (bridge != nullptr && bridge->GetState() == EBridgeState::BRIDGE_UP)
-			{
-				m_BoatState = BoatState::GO_TO_OPERATOR;
-			}
+		break;
+	}
+	case BoatState::GO_TO_DESPAWN:
+	{
+		// Nothing to do
+		break;
+	}
+	case BoatState::DESPAWN:
+	{
+		UnPossess();
+		Destroy();
 
-			break;
-		}
-		case BoatState::GO_TO_OPERATOR:
-		{
-			TArray<AActor*> foundActors;
-			UGameplayStatics::GetAllActorsOfClass(this, ASDTBoatOperator::StaticClass(), foundActors);
-
-			for (AActor* actor : foundActors)
-			{
-				ASDTBoatOperator* boatOperator = Cast<ASDTBoatOperator>(actor);
-				if (boatOperator->IsAvailable())
-				{
-					boatOperator->Reserve(this);
-
-					// TODO : we want to move the agent towards the DropLocation of the boatOperator 
-					// Check ASDTBoatOperator::GetDropLocation to get the location.
-					// Note that m_ReachedTarget should be set to FALSE if the move is valid!
-
-					break;
-				}
-			}
-
-			break;
-		}
-		case BoatState::WAIT_AT_OPERATOR:
-		{
-			// Nothing to do, wait for notification to advance
-			break;
-		}
-		case BoatState::GO_TO_END_BRIDGE:
-		{
-			// Nothing to do
-			break;
-		}
-		case BoatState::WAIT_AT_END_BRIDGE:
-		{
-			// Check if bridge is down
-			FString tag("Bridge_1");
-			AActor* actor = FindActorWithTag(tag, false);
-			ASDTBridge* bridge = Cast<ASDTBridge>(actor);
-
-			// Once the bridge is down, we go through
-			if (bridge != nullptr && bridge->GetState() == EBridgeState::BRIDGE_UP)
-			{
-				m_BoatState = BoatState::GO_TO_DESPAWN;
-
-				tag = "WaitPoint_Water_2";
-				actor = FindActorWithTag(tag, false);
-				if (actor != nullptr)
-				{
-					// TODO : Agents wants to move towards actor
-				}
-			}
-
-			break;
-		}
-		case BoatState::GO_TO_DESPAWN:
-		{
-			// Nothing to do
-			break;
-		}
-		case BoatState::DESPAWN:
-		{
-			UnPossess();
-			Destroy();
-
-			pawn->Destroy();
-			break;
-		}
+		pawn->Destroy();
+		break;
+	}
 	}
 }
 
 void ASDTBoatAIController::NotifyUnloadComplete()
 {
 	m_BoatState = BoatState::GO_TO_END_BRIDGE;
-	
+
 	FString tag("WaitPoint_End_Water");
 	AActor* actor = FindActorWithTag(tag, false);
 	if (actor != nullptr)
 	{
 		// TODO : Agents wants to move towards actor
+		MoveToActor(actor);
+		m_ReachedTarget = false;
 	}
 }
 
@@ -143,6 +153,25 @@ void ASDTBoatAIController::ShowNavigationPath()
 	// Use the UPathFollowingComponent of the AIController to get the path
 	// This function is called while m_ReachedTarget is false 
 	// Check void ASDTBaseAIController::Tick for how it works.
+
+	UPathFollowingComponent* pathComp = GetPathFollowingComponent();
+
+	if (pathComp) return;
+
+	const FNavPathSharedPtr path = pathComp->GetPath();
+
+	if (!path.IsValid()) return;
+
+	const TArray<FNavPathPoint>& points = path->GetPathPoints();
+
+	for (int i = 0; i < points.Num() - 1; i++)
+	{
+		FVector start = points[i].Location;
+		FVector end = points[i + 1].Location;
+
+		DrawDebugLine(GetWorld(), start, end, FColor::Green, false, -1, 0, 5.f);
+		DrawDebugSphere(GetWorld(), start, 20, 8, FColor::Red, false, -1);
+	}
 }
 
 BoatState ASDTBoatAIController::GetBoatState()
@@ -165,25 +194,25 @@ void ASDTBoatAIController::OnMoveCompleted(FAIRequestID RequestID, const FPathFo
 
 	switch (m_BoatState)
 	{
-		case BoatState::GO_TO_START_BRIDGE:
-		{
-			m_BoatState = BoatState::WAIT_AT_START_BRIDGE;
-			break;
-		}
-		case BoatState::GO_TO_OPERATOR:
-		{
-			m_BoatState = BoatState::WAIT_AT_OPERATOR;
-			break;
-		}
-		case BoatState::GO_TO_END_BRIDGE:
-		{
-			m_BoatState = BoatState::WAIT_AT_END_BRIDGE;
-			break;
-		}
-		case BoatState::GO_TO_DESPAWN:
-		{
-			m_BoatState = BoatState::DESPAWN;
-			break;
-		}
+	case BoatState::GO_TO_START_BRIDGE:
+	{
+		m_BoatState = BoatState::WAIT_AT_START_BRIDGE;
+		break;
+	}
+	case BoatState::GO_TO_OPERATOR:
+	{
+		m_BoatState = BoatState::WAIT_AT_OPERATOR;
+		break;
+	}
+	case BoatState::GO_TO_END_BRIDGE:
+	{
+		m_BoatState = BoatState::WAIT_AT_END_BRIDGE;
+		break;
+	}
+	case BoatState::GO_TO_DESPAWN:
+	{
+		m_BoatState = BoatState::DESPAWN;
+		break;
+	}
 	}
 }
