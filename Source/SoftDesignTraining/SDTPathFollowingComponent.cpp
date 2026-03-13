@@ -21,18 +21,32 @@ USDTPathFollowingComponent::USDTPathFollowingComponent(const FObjectInitializer&
 */
 void USDTPathFollowingComponent::FollowPathSegment(float DeltaTime)
 {
+    if (!Path) return;
+
     const TArray<FNavPathPoint>& points = Path->GetPathPoints();
+    if (points.Num() <= MoveSegmentEndIndex) return;
+
     const FNavPathPoint& segmentStart = points[MoveSegmentStartIndex];
     const FNavPathPoint& segmentEnd = points[MoveSegmentEndIndex];
 
-    if (SDTUtils::HasJumpFlag(segmentStart))
+    AController* AICon = Cast<AController>(GetOwner());
+
+    if (SDTUtils::IsNavLink(segmentStart))
     {
+        ACharacter* character = AICon ? Cast<ACharacter>(AICon->GetPawn()) : nullptr;
+
         //TODO: Update jump along path / nav link proxy
+        if (character->GetCharacterMovement()->IsFalling())
+        {
+            return;
+        }
+
+        SetMoveSegment(MoveSegmentEndIndex);
+        return;
     }
     else
     {
         //TODO: Update navigation along path (move along)
-        AController* AICon = Cast<AController>(GetOwner());
         APawn* pawn = AICon ? AICon->GetPawn() : nullptr;
         if (!pawn)
             return;
@@ -75,17 +89,100 @@ void USDTPathFollowingComponent::SetMoveSegment(int32 segmentStartIndex)
 {
     Super::SetMoveSegment(segmentStartIndex);
 
+    if (!Path) return;
+
     const TArray<FNavPathPoint>& points = Path->GetPathPoints();
+    if (points.Num() <= MoveSegmentEndIndex) return;
 
     const FNavPathPoint& segmentStart = points[MoveSegmentStartIndex];
+    const FNavPathPoint& segmentEnd = points[MoveSegmentEndIndex];
 
-    if (SDTUtils::HasJumpFlag(segmentStart) && FNavMeshNodeFlags(segmentStart.Flags).IsNavLink())
+    AController* AICon = Cast<AController>(GetOwner());
+    APawn* pawn = AICon ? AICon->GetPawn() : nullptr;
+    if (!pawn) return;
+
+    FVector pawnLoc = pawn->GetActorLocation();
+    FVector target = segmentEnd.Location;
+
+    if (SDTUtils::IsNavLink(segmentStart) && FNavMeshNodeFlags(segmentStart.Flags).IsNavLink())
     {
         //TODO: Handle starting jump
+        ACharacter* character = Cast<ACharacter>(pawn);
+        if (!character) return;
+
+        FVector start = character->GetActorLocation();
+        FVector end = segmentEnd.Location;
+
+        float minJumpHeight = 200.f;
+        if (FMath::IsNearlyEqual(start.Z, end.Z))
+        {
+            end.Z += minJumpHeight;
+        }
+
+        DrawDebugLine(GetWorld(), start, end, FColor::Cyan, false, 5.f, 0, 5.f);
+        DrawDebugSphere(GetWorld(), end, 50, 12, FColor::Yellow, false, 5.f);
+
+        FVector launchVelocity;
+        float arcFactor = 0.75f;
+        bool bFoundVelocity = UGameplayStatics::SuggestProjectileVelocity(
+            this,
+            launchVelocity,
+            start,
+            end,
+            1200.f, // TossSpeed
+            false,  // bHighArc
+            0.f,
+            0.f,
+            ESuggestProjVelocityTraceOption::DoNotTrace
+        );
+        UE_LOG(LogTemp, Warning, TEXT("Jump segment: FoundVelocity=%d"), bFoundVelocity);
+
+        if (!bFoundVelocity)
+        {
+            FVector horizontal = (end - start);
+            horizontal.Z = 0.f;
+            float distance = horizontal.Size();
+            horizontal = horizontal.GetSafeNormal();
+
+            float speed = FMath::Max(distance * 2.f, 600.f);
+            float vertical = FMath::Max(minJumpHeight, 400.f);
+
+            launchVelocity = horizontal * speed;
+            launchVelocity.Z = vertical;
+        }
+
+        if (character->GetCharacterMovement()->IsMovingOnGround())
+        {
+            character->LaunchCharacter(launchVelocity, true, true);
+            UE_LOG(LogTemp, Warning, TEXT("LaunchCharacter executed!"));
+        }
+
+        return;
     }
     else
     {
         //TODO: Handle normal segments
+        float acceptanceRadius = 50.f;
+        float dist2D = FVector2D::Distance(FVector2D(pawnLoc), FVector2D(target));
+
+        if (dist2D <= acceptanceRadius)
+        {
+            SetMoveSegment(MoveSegmentEndIndex);
+            return;
+        }
+
+        FVector toTarget = target - pawnLoc;
+        toTarget.Z = 0.f;
+        FVector dir = toTarget.GetSafeNormal();
+
+        if (UNavMovementComponent* navMove = pawn->FindComponentByClass<UNavMovementComponent>())
+        {
+            navMove->RequestDirectMove(dir, true);
+        }
+        else if (ACharacter* character = Cast<ACharacter>(pawn))
+        {
+            character->AddMovementInput(dir, 1.0f);
+        }
     }
 }
 
