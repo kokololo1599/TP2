@@ -141,7 +141,10 @@ void ASoftDesignTrainingPlayerController::MoveCharacter()
             DrawDebugLine(GetWorld(), pts[i], pts[i + 1], FColor::Green, false, lifeTime, 0, thickness);
         }
     }
-    UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, goal);
+    
+    if (m_PathFollowingComponent && navPath) {
+        m_PathFollowingComponent->RequestMove(FAIMoveRequest(goal), navPath->GetPath());
+    }
 }
 
 void ASoftDesignTrainingPlayerController::Activate()

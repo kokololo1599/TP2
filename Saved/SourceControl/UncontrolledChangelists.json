@@ -1,0 +1,16 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"C:/Users/tsima/Documents/HIV-2026/LOG8235/TP2/Content/Blueprint/JumpCurve.uasset",
+				"C:/Users/tsima/Documents/HIV-2026/LOG8235/TP2/Content/TopDown/Maps/TP2.umap",
+				"C:/Users/tsima/Documents/HIV-2026/LOG8235/TP2/Content/Anim/SDT_AnimBP.uasset",
+				"C:/Users/tsima/Documents/HIV-2026/LOG8235/TP2/Content/Blueprint/BP_SDTMainCharacter.uasset",
+				"C:/Users/tsima/Documents/HIV-2026/LOG8235/TP2/Content/Blueprint/BP_SDTAICharacter.uasset"
+			]
+		}
+	]
+}

@@ -35,6 +35,14 @@ void USDTPathFollowingComponent::FollowPathSegment(float DeltaTime)
     {
         ACharacter* character = AICon ? Cast<ACharacter>(AICon->GetPawn()) : nullptr;
 
+        float characterDist = FVector::Dist(segmentStart.Location, character->GetActorLocation());
+        float totalDist = FVector::Dist(segmentStart.Location, segmentEnd.Location);
+
+        jumProgress = characterDist / totalDist;
+        if (jumProgress > 0.1f) {
+            UE_LOG(LogTemp, Warning, TEXT("jumProgress=%f, isJumping=%s"), jumProgress, isJumping ? TEXT("oui") : TEXT("non"));
+        }
+
         //TODO: Update jump along path / nav link proxy
         if (character->GetCharacterMovement()->IsFalling())
         {
@@ -103,15 +111,22 @@ void USDTPathFollowingComponent::SetMoveSegment(int32 segmentStartIndex)
 
     FVector pawnLoc = pawn->GetActorLocation();
     FVector target = segmentEnd.Location;
+    isJumping = false;
+    jumProgress = 0.f;
 
     if (SDTUtils::IsNavLink(segmentStart) && FNavMeshNodeFlags(segmentStart.Flags).IsNavLink())
     {
         //TODO: Handle starting jump
+        isJumping = true;
         ACharacter* character = Cast<ACharacter>(pawn);
         if (!character) return;
 
         FVector start = character->GetActorLocation();
         FVector end = segmentEnd.Location;
+
+        // rotation du personnage (TODO: à paufiner)
+        FVector dir = end - start;
+        character->SetActorRotation(dir.ToOrientationQuat());
 
         float minJumpHeight = 200.f;
         if (FMath::IsNearlyEqual(start.Z, end.Z))
