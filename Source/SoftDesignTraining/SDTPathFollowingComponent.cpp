@@ -17,7 +17,6 @@ USDTPathFollowingComponent::USDTPathFollowingComponent(const FObjectInitializer&
 
 /**
 * This function is called every frame while the AI is following a path.
-* MoveSegmentStartIndex and MoveSegmentEndIndex specify where we are on the path point array.
 */
 void USDTPathFollowingComponent::FollowPathSegment(float DeltaTime)
 {
@@ -30,38 +29,45 @@ void USDTPathFollowingComponent::FollowPathSegment(float DeltaTime)
     const FNavPathPoint& segmentEnd = points[MoveSegmentEndIndex];
 
     AController* AICon = Cast<AController>(GetOwner());
+    APawn* pawn = AICon ? AICon->GetPawn() : nullptr;
+    if (!pawn) return;
 
     if (SDTUtils::IsNavLink(segmentStart))
     {
-        ACharacter* character = AICon ? Cast<ACharacter>(AICon->GetPawn()) : nullptr;
+        ACharacter* character = Cast<ACharacter>(pawn);
+        if (!character) return;
 
-        float characterDist = FVector::Dist(segmentStart.Location, character->GetActorLocation());
-        float totalDist = FVector::Dist(segmentStart.Location, segmentEnd.Location);
+        FVector start = segmentStart.Location;
+        FVector end = segmentEnd.Location;
 
-        jumProgress = characterDist / totalDist;
-        if (jumProgress > 0.1f) {
-            UE_LOG(LogTemp, Warning, TEXT("jumProgress=%f, isJumping=%s"), jumProgress, isJumping ? TEXT("oui") : TEXT("non"));
-        }
+        // advance jump progress using time only
+        jumProgress += DeltaTime * 0.8f;
+        jumProgress = FMath::Clamp(jumProgress, 0.f, 1.f);
 
-        //TODO: Update jump along path / nav link proxy
-        if (character->GetCharacterMovement()->IsFalling())
+        // horizontal interpolation
+        FVector newPos = FMath::Lerp(start, end, jumProgress);
+
+        // parabolic arc for jump
+        float jumpHeight = 300.f;
+        float heightOffset = 4 * jumpHeight * jumProgress * (1 - jumProgress);
+
+        newPos.Z += heightOffset;
+
+        character->SetActorLocation(newPos);
+
+        if (jumProgress >= 0.98f)
         {
-            return;
+            isJumping = false;
+            SetMoveSegment(MoveSegmentEndIndex);
         }
 
-        SetMoveSegment(MoveSegmentEndIndex);
         return;
     }
     else
     {
-        //TODO: Update navigation along path (move along)
-        APawn* pawn = AICon ? AICon->GetPawn() : nullptr;
-        if (!pawn)
-            return;
-
+        // Normal navigation
         const FVector pawnLoc = pawn->GetActorLocation();
         const FVector target = segmentEnd.Location;
-
         // Consider segment reached in 2D (navmesh walking)
         const float acceptanceRadius = 50.f;
         const float dist2D = FVector2D::Distance(FVector2D(pawnLoc), FVector2D(target));
@@ -111,13 +117,15 @@ void USDTPathFollowingComponent::SetMoveSegment(int32 segmentStartIndex)
 
     FVector pawnLoc = pawn->GetActorLocation();
     FVector target = segmentEnd.Location;
+
     isJumping = false;
     jumProgress = 0.f;
 
     if (SDTUtils::IsNavLink(segmentStart) && FNavMeshNodeFlags(segmentStart.Flags).IsNavLink())
     {
-        //TODO: Handle starting jump
+        // Start jump
         isJumping = true;
+
         ACharacter* character = Cast<ACharacter>(pawn);
         if (!character) return;
 
@@ -128,55 +136,13 @@ void USDTPathFollowingComponent::SetMoveSegment(int32 segmentStartIndex)
         FVector dir = end - start;
         character->SetActorRotation(dir.ToOrientationQuat());
 
-        float minJumpHeight = 200.f;
-        if (FMath::IsNearlyEqual(start.Z, end.Z))
-        {
-            end.Z += minJumpHeight;
-        }
-
         DrawDebugLine(GetWorld(), start, end, FColor::Cyan, false, 5.f, 0, 5.f);
         DrawDebugSphere(GetWorld(), end, 50, 12, FColor::Yellow, false, 5.f);
-
-        FVector launchVelocity;
-        float arcFactor = 0.75f;
-        bool bFoundVelocity = UGameplayStatics::SuggestProjectileVelocity(
-            this,
-            launchVelocity,
-            start,
-            end,
-            1200.f, // TossSpeed
-            false,  // bHighArc
-            0.f,
-            0.f,
-            ESuggestProjVelocityTraceOption::DoNotTrace
-        );
-        UE_LOG(LogTemp, Warning, TEXT("Jump segment: FoundVelocity=%d"), bFoundVelocity);
-
-        if (!bFoundVelocity)
-        {
-            FVector horizontal = (end - start);
-            horizontal.Z = 0.f;
-            float distance = horizontal.Size();
-            horizontal = horizontal.GetSafeNormal();
-
-            float speed = FMath::Max(distance * 2.f, 600.f);
-            float vertical = FMath::Max(minJumpHeight, 400.f);
-
-            launchVelocity = horizontal * speed;
-            launchVelocity.Z = vertical;
-        }
-
-        if (character->GetCharacterMovement()->IsMovingOnGround())
-        {
-            character->LaunchCharacter(launchVelocity, true, true);
-            UE_LOG(LogTemp, Warning, TEXT("LaunchCharacter executed!"));
-        }
 
         return;
     }
     else
     {
-        //TODO: Handle normal segments
         float acceptanceRadius = 50.f;
         float dist2D = FVector2D::Distance(FVector2D(pawnLoc), FVector2D(target));
 
@@ -200,4 +166,3 @@ void USDTPathFollowingComponent::SetMoveSegment(int32 segmentStartIndex)
         }
     }
 }
-
