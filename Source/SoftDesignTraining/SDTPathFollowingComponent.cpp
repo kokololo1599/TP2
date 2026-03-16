@@ -72,12 +72,6 @@ void USDTPathFollowingComponent::FollowPathSegment(float DeltaTime)
         const float acceptanceRadius = 50.f;
         const float dist2D = FVector2D::Distance(FVector2D(pawnLoc), FVector2D(target));
 
-        if (dist2D <= acceptanceRadius)
-        {
-            // reached this point -> advance to next segment
-            SetMoveSegment(MoveSegmentEndIndex);
-            return;
-        }
 
         // drive pawn toward target
         FVector toTarget = target - pawnLoc;
