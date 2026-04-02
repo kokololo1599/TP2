@@ -103,14 +103,14 @@ USDTAnimNotify_JumpStart::~USDTAnimNotify_JumpStart() {}
 // ********** End Class USDTAnimNotify_JumpStart ***************************************************
 
 // ********** Begin Registration *******************************************************************
-struct Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpStart_h__Script_SoftDesignTraining_Statics
+struct Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpStart_h__Script_SoftDesignTraining_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
 		{ Z_Construct_UClass_USDTAnimNotify_JumpStart, USDTAnimNotify_JumpStart::StaticClass, TEXT("USDTAnimNotify_JumpStart"), &Z_Registration_Info_UClass_USDTAnimNotify_JumpStart, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USDTAnimNotify_JumpStart), 1019201062U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpStart_h__Script_SoftDesignTraining_2460670807(TEXT("/Script/SoftDesignTraining"),
-	Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpStart_h__Script_SoftDesignTraining_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpStart_h__Script_SoftDesignTraining_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpStart_h__Script_SoftDesignTraining_2460670807(TEXT("/Script/SoftDesignTraining"),
+	Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpStart_h__Script_SoftDesignTraining_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpStart_h__Script_SoftDesignTraining_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // ********** End Registration *********************************************************************

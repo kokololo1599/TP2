@@ -19,7 +19,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 // ********** Begin Class ASDTBoatAIController *****************************************************
 SOFTDESIGNTRAINING_API UClass* Z_Construct_UClass_ASDTBoatAIController_NoRegister();
 
-#define FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatAIController_h_28_INCLASS_NO_PURE_DECLS \
+#define FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatAIController_h_28_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesASDTBoatAIController(); \
 	friend struct Z_Construct_UClass_ASDTBoatAIController_Statics; \
@@ -30,7 +30,7 @@ public: \
 	DECLARE_SERIALIZER(ASDTBoatAIController)
 
 
-#define FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatAIController_h_28_ENHANCED_CONSTRUCTORS \
+#define FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatAIController_h_28_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API ASDTBoatAIController(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	/** Deleted move- and copy-constructors, should never be used */ \
@@ -42,12 +42,12 @@ public: \
 	NO_API virtual ~ASDTBoatAIController();
 
 
-#define FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatAIController_h_25_PROLOG
-#define FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatAIController_h_28_GENERATED_BODY \
+#define FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatAIController_h_25_PROLOG
+#define FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatAIController_h_28_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatAIController_h_28_INCLASS_NO_PURE_DECLS \
-	FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatAIController_h_28_ENHANCED_CONSTRUCTORS \
+	FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatAIController_h_28_INCLASS_NO_PURE_DECLS \
+	FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatAIController_h_28_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -57,6 +57,6 @@ class ASDTBoatAIController;
 // ********** End Class ASDTBoatAIController *******************************************************
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatAIController_h
+#define CURRENT_FILE_ID FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatAIController_h
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

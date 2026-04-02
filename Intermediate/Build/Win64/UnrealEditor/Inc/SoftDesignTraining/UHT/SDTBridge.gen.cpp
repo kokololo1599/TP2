@@ -116,14 +116,14 @@ ASDTBridge::~ASDTBridge() {}
 // ********** End Class ASDTBridge *****************************************************************
 
 // ********** Begin Registration *******************************************************************
-struct Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBridge_h__Script_SoftDesignTraining_Statics
+struct Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBridge_h__Script_SoftDesignTraining_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
 		{ Z_Construct_UClass_ASDTBridge, ASDTBridge::StaticClass, TEXT("ASDTBridge"), &Z_Registration_Info_UClass_ASDTBridge, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASDTBridge), 897952562U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBridge_h__Script_SoftDesignTraining_296881091(TEXT("/Script/SoftDesignTraining"),
-	Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBridge_h__Script_SoftDesignTraining_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBridge_h__Script_SoftDesignTraining_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBridge_h__Script_SoftDesignTraining_296881091(TEXT("/Script/SoftDesignTraining"),
+	Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBridge_h__Script_SoftDesignTraining_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBridge_h__Script_SoftDesignTraining_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // ********** End Registration *********************************************************************

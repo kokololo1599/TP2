@@ -19,7 +19,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 // ********** Begin Class ASDTBoatOperator *********************************************************
 SOFTDESIGNTRAINING_API UClass* Z_Construct_UClass_ASDTBoatOperator_NoRegister();
 
-#define FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatOperator_h_14_INCLASS_NO_PURE_DECLS \
+#define FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatOperator_h_14_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesASDTBoatOperator(); \
 	friend struct Z_Construct_UClass_ASDTBoatOperator_Statics; \
@@ -30,7 +30,7 @@ public: \
 	DECLARE_SERIALIZER(ASDTBoatOperator)
 
 
-#define FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatOperator_h_14_ENHANCED_CONSTRUCTORS \
+#define FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatOperator_h_14_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	ASDTBoatOperator(ASDTBoatOperator&&) = delete; \
 	ASDTBoatOperator(const ASDTBoatOperator&) = delete; \
@@ -40,12 +40,12 @@ public: \
 	NO_API virtual ~ASDTBoatOperator();
 
 
-#define FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatOperator_h_11_PROLOG
-#define FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatOperator_h_14_GENERATED_BODY \
+#define FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatOperator_h_11_PROLOG
+#define FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatOperator_h_14_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatOperator_h_14_INCLASS_NO_PURE_DECLS \
-	FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatOperator_h_14_ENHANCED_CONSTRUCTORS \
+	FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatOperator_h_14_INCLASS_NO_PURE_DECLS \
+	FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatOperator_h_14_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -55,6 +55,6 @@ class ASDTBoatOperator;
 // ********** End Class ASDTBoatOperator ***********************************************************
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTBoatOperator_h
+#define CURRENT_FILE_ID FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTBoatOperator_h
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

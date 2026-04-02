@@ -140,11 +140,11 @@ void USDTPathFollowingComponent::SetMoveSegment(int32 segmentStartIndex)
         float acceptanceRadius = 50.f;
         float dist2D = FVector2D::Distance(FVector2D(pawnLoc), FVector2D(target));
 
-        if (dist2D <= acceptanceRadius)
+        /*if (dist2D <= acceptanceRadius)
         {
             SetMoveSegment(MoveSegmentEndIndex);
             return;
-        }
+        }*/
 
         FVector toTarget = target - pawnLoc;
         toTarget.Z = 0.f;

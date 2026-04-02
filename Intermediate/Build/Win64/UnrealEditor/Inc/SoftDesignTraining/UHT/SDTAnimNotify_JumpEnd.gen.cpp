@@ -103,14 +103,14 @@ USDTAnimNotify_JumpEnd::~USDTAnimNotify_JumpEnd() {}
 // ********** End Class USDTAnimNotify_JumpEnd *****************************************************
 
 // ********** Begin Registration *******************************************************************
-struct Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpEnd_h__Script_SoftDesignTraining_Statics
+struct Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpEnd_h__Script_SoftDesignTraining_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
 		{ Z_Construct_UClass_USDTAnimNotify_JumpEnd, USDTAnimNotify_JumpEnd::StaticClass, TEXT("USDTAnimNotify_JumpEnd"), &Z_Registration_Info_UClass_USDTAnimNotify_JumpEnd, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USDTAnimNotify_JumpEnd), 3658626033U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpEnd_h__Script_SoftDesignTraining_1129089566(TEXT("/Script/SoftDesignTraining"),
-	Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpEnd_h__Script_SoftDesignTraining_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpEnd_h__Script_SoftDesignTraining_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpEnd_h__Script_SoftDesignTraining_1129089566(TEXT("/Script/SoftDesignTraining"),
+	Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpEnd_h__Script_SoftDesignTraining_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTAnimNotify_JumpEnd_h__Script_SoftDesignTraining_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // ********** End Registration *********************************************************************

@@ -132,14 +132,14 @@ ASDTAISpawner::~ASDTAISpawner() {}
 // ********** End Class ASDTAISpawner **************************************************************
 
 // ********** Begin Registration *******************************************************************
-struct Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTAISpawner_h__Script_SoftDesignTraining_Statics
+struct Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTAISpawner_h__Script_SoftDesignTraining_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
 		{ Z_Construct_UClass_ASDTAISpawner, ASDTAISpawner::StaticClass, TEXT("ASDTAISpawner"), &Z_Registration_Info_UClass_ASDTAISpawner, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASDTAISpawner), 1638075812U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTAISpawner_h__Script_SoftDesignTraining_1176244807(TEXT("/Script/SoftDesignTraining"),
-	Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTAISpawner_h__Script_SoftDesignTraining_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTAISpawner_h__Script_SoftDesignTraining_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTAISpawner_h__Script_SoftDesignTraining_1176244807(TEXT("/Script/SoftDesignTraining"),
+	Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTAISpawner_h__Script_SoftDesignTraining_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTAISpawner_h__Script_SoftDesignTraining_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // ********** End Registration *********************************************************************

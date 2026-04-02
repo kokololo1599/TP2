@@ -19,7 +19,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 // ********** Begin Class USDTPathFollowingComponent ***********************************************
 SOFTDESIGNTRAINING_API UClass* Z_Construct_UClass_USDTPathFollowingComponent_NoRegister();
 
-#define FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h_15_INCLASS \
+#define FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h_15_INCLASS \
 private: \
 	static void StaticRegisterNativesUSDTPathFollowingComponent(); \
 	friend struct Z_Construct_UClass_USDTPathFollowingComponent_Statics; \
@@ -32,7 +32,7 @@ public: \
 
 
 
-#define FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h_15_STANDARD_CONSTRUCTORS \
+#define FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h_15_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API USDTPathFollowingComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(USDTPathFollowingComponent) \
@@ -44,12 +44,12 @@ public: \
 	NO_API virtual ~USDTPathFollowingComponent();
 
 
-#define FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h_12_PROLOG
-#define FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h_15_GENERATED_BODY_LEGACY \
+#define FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h_12_PROLOG
+#define FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h_15_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h_15_INCLASS \
-	FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h_15_STANDARD_CONSTRUCTORS \
+	FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h_15_INCLASS \
+	FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h_15_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -59,6 +59,6 @@ class USDTPathFollowingComponent;
 // ********** End Class USDTPathFollowingComponent *************************************************
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_tsima_Documents_HIV_2026_LOG8235_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h
+#define CURRENT_FILE_ID FID_Users_thsimb_Documents_Agents_TP2_Source_SoftDesignTraining_SDTPathFollowingComponent_h
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
